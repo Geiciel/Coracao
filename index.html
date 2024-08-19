@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Heart Animation</title>
     <style>
         body {
             margin: 0;
+            overflow-x: hidden;
+            overflow-y: hidden;
             background-color: black;
         }
         canvas {
@@ -15,33 +18,68 @@
         p {
             text-align: center;
         }
+        div {
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            margin: 0px 10px;
+            width: 70px;
+            height: 70px;
+            border: none;
+            background-color: #00000000;
+            font-weight: bold;
+            border-radius: 50%;
+        }
+        button:hover {
+            background-color: #0c0c0c;
+        }
+        i {
+            font-size: 3rem;
+            text-align: center;
+            color: white;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 </head>
 <body>
 <p>Você esta em cada fibra do meu coração</p>
+<div>
+    <!-- Botão para executar função específica -->
+    <button id="execute-btn">
+        <i class="bi bi-play"></i>
+    </button>
+    
+    <!-- Botão para reiniciar a página -->
+    <button id="reset-btn">
+        <i class="bi bi-arrow-clockwise"></i>
+    </button>
+</div>
 <script>
     let totalFrames = 2900; // Total de quadros para a animação de 35 segundos (60fps)
-    let i = 0;
-    let increment = 999 / totalFrames; // Ajuste do incremento para preencher em 35s
+let i = 0;
+let increment = 999 / totalFrames; // Ajuste do incremento para preencher em 35s
+let animationStarted = false; // Variável para verificar se a animação começou
 
-    function setup() {
-        createCanvas(windowWidth, windowHeight);
-        background(0);
-        stroke('red');
-        strokeWeight(1);
-        frameRate(60);  // Controla a velocidade da animação
-    }
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    background(0);
+    stroke('red');
+    strokeWeight(1);
+    frameRate(60);  // Controla a velocidade da animação
+    noLoop(); // Não iniciar a animação automaticamente
+}
 
-    function hearta(k) {
-        return 15 * Math.sin(k) ** 3;
-    }
+function hearta(k) {
+    return 15 * Math.sin(k) ** 3;
+}
 
-    function heartb(k) {
-        return 12 * Math.cos(k) - 5 * Math.cos(2 * k) - 2 * Math.cos(3 * k) - Math.cos(4 * k);
-    }
+function heartb(k) {
+    return 12 * Math.cos(k) - 5 * Math.cos(2 * k) - 2 * Math.cos(3 * k) - Math.cos(4 * k);
+}
 
-    function draw() {
+function draw() {
+    if (animationStarted) {
         translate(width / 2, height / 2); // Centraliza o coração
 
         if (i < 900) {  // 900 é um valor menor para termos mais detalhes na linha
@@ -53,10 +91,21 @@
             noLoop(); // Para a animação após completar
         }
     }
+}
 
-    function windowResized() {
-        resizeCanvas(windowWidth, windowHeight);
-    }
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+
+document.getElementById('execute-btn').addEventListener('click', function() {
+    animationStarted = true;
+    loop(); // Inicia a animação
+});
+
+document.getElementById('reset-btn').addEventListener('click', function() {
+    location.reload(); // Recarrega a página
+});
+
 </script>
 
 </body>
