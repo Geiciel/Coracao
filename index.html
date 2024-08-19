@@ -56,7 +56,7 @@
     </button>
 </div>
 <script>
-    let totalFrames = 2900; // Total de quadros para a animação de 35 segundos (60fps)
+let totalFrames = 2900; // Total de quadros para a animação de 35 segundos (60fps)
 let i = 0;
 let increment = 999 / totalFrames; // Ajuste do incremento para preencher em 35s
 let animationStarted = false; // Variável para verificar se a animação começou
@@ -66,7 +66,7 @@ function setup() {
     background(0);
     stroke('red');
     strokeWeight(1);
-    frameRate(60);  // Controla a velocidade da animação
+    frameRate(30);  // Controla a velocidade da animação, originalmente tava 60
     noLoop(); // Não iniciar a animação automaticamente
 }
 
